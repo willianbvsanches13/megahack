@@ -20,13 +20,15 @@ class User {
 
   async store(req: Request, res: Response): Promise<Response> {
     console.log('teste', req.body);
-    const { address, avatar } = req.body as {
+    const { address, avatar, services } = req.body as {
       address: AddressInterface,
       avatar: AttachmentInterface,
+      services: String,
     };
 
     let addressLocal;
     let avatarLocal;
+    let servicesLocal = {};
 
     if (address) {
       addressLocal = await AddressServices.store(address);
@@ -38,10 +40,15 @@ class User {
       avatarLocal = avatarLocal ? { avatar: avatarLocal._id } : {};
     }
 
+    if (services) {
+      servicesLocal = { services: services.split(';') };
+    }
+
     console.log('user', {
       ...req.body,
       ...addressLocal,
       ...avatarLocal,
+      ...servicesLocal,
     });
     const user = await UserServices.store({
       ...req.body,

@@ -13,7 +13,7 @@ export interface UserInterface extends Document {
   phone?: string;
   serviceProvider?: boolean;
   address?: AddressInterface;
-  services?: ServiceInterface;
+  services?: String[];
   avatar?: AttachmentInterface;
   comparePassword: Function;
   generateToken: Function;
@@ -41,7 +41,7 @@ const User = new Schema<UserInterface>({
     ref: 'Address',
   },
   services: {
-    type: String,
+    type: [String],
   },
   avatar: {
     type: Schema.Types.ObjectId,
