@@ -19,7 +19,6 @@ class User {
   }
 
   async store(req: Request, res: Response): Promise<Response> {
-    console.log('teste', req.body);
     const { address, avatar, services } = req.body as {
       address: AddressInterface,
       avatar: AttachmentInterface,
@@ -44,16 +43,11 @@ class User {
       servicesLocal = { services: services.split(';') };
     }
 
-    console.log('user', {
-      ...req.body,
-      ...addressLocal,
-      ...avatarLocal,
-      ...servicesLocal,
-    });
     const user = await UserServices.store({
       ...req.body,
       ...addressLocal,
       ...avatarLocal,
+      ...servicesLocal,
     });
 
     return res.json(user);
