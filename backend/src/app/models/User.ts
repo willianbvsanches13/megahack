@@ -41,8 +41,7 @@ const User = new Schema<UserInterface>({
     ref: 'Address',
   },
   services: {
-    type: Schema.Types.ObjectId,
-    ref: 'Services',
+    type: String,
   },
   avatar: {
     type: Schema.Types.ObjectId,
